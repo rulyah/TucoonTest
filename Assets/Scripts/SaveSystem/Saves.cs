@@ -25,13 +25,13 @@ namespace SaveSystem
             Debug.Log("Game saved into save.json");
         }
 
-        public static void Load()
+        public static bool TryLoad()
         {
             string path = Path.Combine(Application.dataPath, "save.json");
             if (!File.Exists(path))
             {
                 Debug.LogError("Save file not found.");
-                return;
+                return false;
             }
 
             using StreamReader reader = new StreamReader(path);
@@ -43,6 +43,8 @@ namespace SaveSystem
             Core.Instance.Inventory.SetItemCount(ItemType.BuildingPermit, saveData.buildingPermit);
             Core.Instance.Crafting.Init(saveData.craftedPermitsCount);
             BuildingsManager.Instance.Init(saveData.currentBuildingIndex);
+
+            return true;
         }
         
         public struct SaveData

@@ -38,6 +38,8 @@ public class Core : MonoBehaviour
 
     private void OnDestroy() => Saves.Save();
 
+    private void OnApplicationQuit() => Saves.Save();
+
     private IEnumerator CoinsIncome()
     {
         while (true)
@@ -56,8 +58,10 @@ public class Core : MonoBehaviour
 
     public void LoadGame()
     {
-        StartCoroutine(CoinsIncome());
-        Saves.Load();
+        if(!Saves.TryLoad())
+           StartGame();
+        else
+            StartCoroutine(CoinsIncome());
     }
     
     public void IncreaseProfit(int value) => _profitPerSecond += value;
