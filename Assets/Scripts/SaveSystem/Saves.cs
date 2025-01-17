@@ -19,7 +19,7 @@ namespace SaveSystem
             };
             
             string json = JsonUtility.ToJson(saveData);
-            string path = Path.Combine(Application.dataPath, "save.json");
+            string path = Path.Combine(Application.persistentDataPath, "GameData.json");
             using StreamWriter writer = new StreamWriter(path);
             writer.Write(json);
             Debug.Log("Game saved into save.json");
@@ -27,7 +27,7 @@ namespace SaveSystem
 
         public static bool TryLoad()
         {
-            string path = Path.Combine(Application.dataPath, "save.json");
+            string path = Path.Combine(Application.persistentDataPath, "GameData.json");
             if (!File.Exists(path))
             {
                 Debug.LogError("Save file not found.");

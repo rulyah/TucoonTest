@@ -38,7 +38,11 @@ public class Core : MonoBehaviour
 
     private void OnDestroy() => Saves.Save();
 
-    private void OnApplicationQuit() => Saves.Save();
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if(pauseStatus) 
+            Saves.Save();
+    }
 
     private IEnumerator CoinsIncome()
     {
